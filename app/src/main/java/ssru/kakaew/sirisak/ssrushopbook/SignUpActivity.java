@@ -1,78 +1,92 @@
 package ssru.kakaew.sirisak.ssrushopbook;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
 
-public class SignUpActivity extends ActionBarActivity {
+import java.io.IOException;
+
+public class SignUpActivity extends AppCompatActivity {
 
     //Explicit
-    private EditText nameEditText,surNameEditText,userEditText, passwordEditText;
-    private String nameString,surnameString,userString, passwordString;
-    private static final String Urlupload = "http://swiftcodingthai.com/ssru/add_user_Pae.php";
-
+    private EditText nameEditText, surnameEditText,
+            userEditText, passwordEditText;
+    private String nameString, surnameString,
+            userString, passwordString;
+    private static final String urlUpload = "http://swiftcodingthai.com/ssru/add_user_Pae.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        //Bind Widget
 
-        nameEditText =(EditText) findViewById(R.id.editText);
-        surNameEditText = (EditText) findViewById(R.id.editText2);
+        //Bind Widget
+        nameEditText = (EditText) findViewById(R.id.editText);
+        surnameEditText = (EditText) findViewById(R.id.editText2);
         userEditText = (EditText) findViewById(R.id.editText3);
         passwordEditText = (EditText) findViewById(R.id.editText4);
 
-    } //Main Method
 
+    }   // Main Method
 
-    public  void clickSingUpSign(View view) {
+    public void clickSingUpSign(View view) {
 
         nameString = nameEditText.getText().toString().trim();
-        surnameString = surNameEditText.getText().toString().trim();
+        surnameString = surnameEditText.getText().toString().trim();
         userString = userEditText.getText().toString().trim();
         passwordString = passwordEditText.getText().toString().trim();
 
         //Check Space
-        if (nameString.equals("") || surnameString.equals("") || userString.equals("") || passwordString.equals("")) {
+        if (nameString.equals("") || surnameString.equals("") ||
+                userString.equals("") || passwordString.equals("")) {
             //Have Space
             MyAlert myAlert = new MyAlert();
-            myAlert.myDialog(this,"Have Space","Please Try Again ");
+            myAlert.myDialog(this, "Have Space", "Please Try EIEI");
 
         } else {
             //No Space
             uploadNewUser();
+
         }
 
-    } // clickSign
+
+    }   // clickSign
 
     private void uploadNewUser() {
-    }
+
+        OkHttpClient okHttpClient = new OkHttpClient();
+        RequestBody requestBody = new FormEncodingBuilder()
+                .add("isAdd", "true")
+                .add("Name", nameString)
+                .add("Surname", surnameString)
+                .add("User", userString)
+                .add("Password", passwordString)
+                .build();
+        Request.Builder builder = new Request.Builder();
+        Request request = builder.url("http://swiftcodingthai.com/ssru/add_user_Pae.php").post(requestBody).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+                finish();
+            }
+        });
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_sign_up, menu);
-        return true;
-    }
+    }   // uploadNewUser
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-} //Main Class
+}   // Main Class

@@ -10,10 +10,17 @@ import android.view.View;
 
 public class MainActivity extends ActionBarActivity {
 
+    //Explicit
+    private MyManage myManage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Request SQLite
+        myManage = new MyManage(MainActivity.this);
+
     } // Main Method
 
     public void clickSignUpMain(View view) {
