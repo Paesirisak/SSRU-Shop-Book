@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">SSRU Shop Book</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+
+    <string name="signup">Sign Up</string>
+    <string name="name">ชื่อ</string>
+    <string name="sur">นามสกุล</string>
+    <string name="user">User</string>
+    <string name="pass">Password</string>
+    <string name="promote">สมัครวันนี้ ได้แต้มฟรี 500</string>
+
+
+</resources>
