@@ -11,6 +11,7 @@
     <string name="user">User</string>
     <string name="pass">Password</string>
     <string name="promote">สมัครวันนี้ ได้แต้มฟรี 500</string>
+    <string name="title_activity_product_list_view">ProductListView</string>
 
 
 </resources>

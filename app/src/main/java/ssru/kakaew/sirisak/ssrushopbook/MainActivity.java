@@ -100,7 +100,14 @@ public class MainActivity extends ActionBarActivity {
             //Check Password
             if (passwordString.equals(loginString[4])) {
                 //Password True
-                Toast.makeText(this, "Walcome " + loginString[1] + " " + loginString[2],Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(MainActivity.this, ProductListView.class);
+                intent.putExtra("Login", loginString);
+                startActivity(intent);
+
+                Toast.makeText(this, "Walcome " + loginString[1] + " " + loginString[2], Toast.LENGTH_SHORT).show();
+
+                finish();
 
             } else {
                 //Password False
