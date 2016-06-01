@@ -26,6 +26,10 @@
             android:name=".ProductListView"
             android:label="@string/title_activity_product_list_view" >
         </activity>
+        <activity
+            android:name=".ReadPDF"
+            android:label="@string/title_activity_read_pdf" >
+        </activity>
     </application>
 
 </manifest>
