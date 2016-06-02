@@ -14,6 +14,7 @@
     <string name="title_activity_product_list_view">ProductListView</string>
     <string name="title_activity_read_pdf">ReadPDF</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_map">ระบุตำแหน่ง</string>
 
 
 </resources>
