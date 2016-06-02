@@ -5,34 +5,70 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+
+import java.io.IOException;
+
 
 public class ReadPDF extends ActionBarActivity {
+
+    //Explicit
+    private String nameBookString, priceBookString, urlPDFString, moneyString;
+    private String[] loginStrings;
+    private String urlEdit = "http://swiftcodingthai.com/ssru/edit_money_Pae.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_pdf);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_read_pd, menu);
-        return true;
-    }
+        //Get Value From Intent
+        nameBookString = getIntent().getStringExtra("NameBook");
+        priceBookString = getIntent().getStringExtra("PriceBook");
+        urlPDFString = getIntent().getStringExtra("urlEbook");
+        loginStrings = getIntent().getStringArrayExtra("Login");
+        moneyString = getIntent().getStringExtra("Money");
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        //updateAccount
+        updateAccount();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+    }//Main Method
 
-        return super.onOptionsItemSelected(item);
-    }
-}
+    private void updateAccount() {
+
+        int intCurrentMoney = Integer.parseInt(moneyString);
+        int intPriceBook = Integer.parseInt(priceBookString);
+        int intMyMoney = intCurrentMoney - intPriceBook;
+
+        OkHttpClient okHttpClient = new OkHttpClient();
+        RequestBody requestBody = new FormEncodingBuilder()
+                .add("isAdd", "true")
+                .add("User", loginStrings[3])
+                .add("Money", Integer.toString(intMyMoney))
+                .build();
+        Request.Builder builder = new Request.Builder();
+        Request request = builder.url(urlEdit).post(requestBody).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Request request, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Response response) throws IOException {
+
+            }
+        });
+
+
+    } //updateAccount
+
+}//Main Class
+

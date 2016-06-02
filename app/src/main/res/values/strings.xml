@@ -13,6 +13,7 @@
     <string name="promote">สมัครวันนี้ ได้แต้มฟรี 500</string>
     <string name="title_activity_product_list_view">ProductListView</string>
     <string name="title_activity_read_pdf">ReadPDF</string>
+    <string name="title_activity_maps">Map</string>
 
 
 </resources>
